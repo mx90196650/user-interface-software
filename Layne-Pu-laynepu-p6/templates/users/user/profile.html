@@ -1,0 +1,36 @@
+{% extends "chinese_food_recipes/base.html" %}
+{% load static %}
+
+{% block page-title %}Profile for {{ user.username }}{% endblock %}
+
+{% block css %}
+   <link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{%  block content-title %}
+    <div id="profile-title">
+        <h1 id="profile-title">Profile for {{ user.username }}</h1>
+        {% if request.session.role == 'admin' or request.session.username == user.username %}
+            <img src="{% static 'img/edit_icon.png' %}" alt="icon" class="editIcon" url="{% url 'users:profile-edit' username=user.username %}">
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block main-content %}
+    <dl id="profile-detail">
+        <dt>Username: </dt>
+        <dd>{{ user.username }}<br></dd>
+        <dt>First Name: </dt>
+        <dd>{{ user.first_name }}<br></dd>
+        <dt>Last Name: </dt>
+        <dd>{{ user.last_name }}<br></dd>
+        <dt>Email Address: </dt>
+        <dd>{{ user.email }}<br></dd>
+        <dt>Role: </dt>
+        <dd>{{ user.details.role }}<br></dd>
+    </dl>
+{% endblock %}
+
+{% block activity-feed %}
+    {% include "actions/action/feed.html" with user=user %}
+{% endblock %}

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Jia Chang Bian Fan</title>
+        <link rel="stylesheet" type="text/css" href="css/global.css">
+        <link rel="stylesheet" type="text/css" href="css/add.css">
+        <script src="js/jquery-3.6.0.min.js"></script>
+        <script src="js/add.js"></script>
+    </head>
+
+    <body>
+        <div id="header">
+            <div id="title-box">
+                <img src="img/logo.png" alt="Logo">
+                <h1>Jia Chang Bian Fan</h1>
+                <h2>Chinese Homely Cuisine</h2>
+            </div> <!-- #title-box -->
+
+            <ul id="primary-nav">
+                <li><a href="#" class="selected">Home</a></li>
+                <li><a href="#">Terms</a></li>
+                <li><a href="#">Privacy</a></li>
+                <li><a href="#">About us</a></li>
+            </ul> <!-- #primary-nav -->
+
+            <div id="user-section">
+                <img src="img/me.jpeg" alt="user-photo">
+                <div id=user-text-section>
+                    <p>Logged in as <a href="#">Layne_1</a></p>
+                    <a href="home.html" id="log-out-button">Log out</a>
+                </div> <!-- #user-text-section -->
+            </div> <!-- user-section -->
+        </div> <!-- #header -->
+
+        <div id="short-cut-menu">
+            <p>Common Categories: </p>
+            <a href="list.html" class="short-cut-button">Rice</a>
+            <a href="list.html" class="short-cut-button">Noodle</a>
+            <a href="list.html" class="short-cut-button">Beef</a>
+            <a href="list.html" class="short-cut-button">Pork</a>
+            <a href="list.html" class="short-cut-button">Chicken</a>
+            <a href="list.html" class="short-cut-button">egg</a>
+            <a href="list.html" class="short-cut-button">Leafy vegetable</a>
+            <a href="list.html" class="short-cut-button">legume</a>
+            <a href="list.html" class="short-cut-button">dumpling</a>
+            <a href="list.html" class="short-cut-button">Congee</a>
+        </div> <!-- #short-cut-menu -->
+
+
+        <div id="content">
+
+            <h1 id="create-recipe-title">Create Recipe</h1>
+            <div id="main-content">
+                <form id="add-recipe-form">
+                    <div id="overview-and-photo">
+
+                        <div id="add-overview">
+                            <h4 class="add-recipe-section-title">Name of the dish</h4>
+                            <input type="text" name="dish-name" id="add-dish-name">
+                            <h4 class="add-recipe-section-title">Introduction</h4>
+                            <input type="text" name="add-introduction" id="add-introduction">
+                        </div> <!-- #add-overview -->
+
+                        <div id="right-section">
+                            <button type="button" id="upload-button">Click to upload a photo</button>
+                            <input type="submit" name="post-recipe" value="Post" id="post-button">
+                            <button type="button" id="cancel-button">Cancel</button>
+                        </div> <!-- #right-section -->
+
+                    </div> <!-- #overview-and-photo -->
+
+                    <div id="add-cook-info">
+                        <h4 class="add-recipe-section-title">Number of Serving: <input type="text" name="number-of-serving"></h4>
+                        <h4 class="add-recipe-section-title">Prep Time: <input type="text" name="dish-prep-time" placeholder="minutes"></h4>
+                        <h4 class="add-recipe-section-title">Cook Time: <input type="text" name="cook-time" placeholder="minutes"></h4>
+                    </div> <!-- #add-cook-info -->
+
+                    <h4 class="add-recipe-section-title">Ingredient</h4>
+                    <input type="text" name="add-ingredient" id="add-ingredient">
+                    <h4 class="add-recipe-section-title">Instruction</h4>
+                    <input type="text" name="add-instruction" id="add-instruction">
+
+                    <div id="post-cancel-button">
+                        <input type="submit" name="post-recipe" value="Post">
+                        <button type="button">Cancel</button>
+                    </div> <!-- #post-cancel-button -->
+                </form>
+
+                <div id="side-bar">
+                    <a href="#"><img src="img/US_army_ad.jpeg" alt="Ad"></a>
+                    <a href="#"><img src="img/Whiskey_ad.jpeg" alt="Ad"></a>
+                </div> <!-- #side-bar -->
+
+            </div> <!-- #main-content -->
+        </div> <!-- #content -->
+
+        <div id="footer">
+            <p><a href="#">Home</a> | <a href="#">Terms</a> | <a href="#">Privacy</a> | <a href="#">About us</a></p>
+            <p>Copyright 2021 Jia Chang Bian Fan</p>
+        </div> <!-- #footer-->
+
+    </body>
+</html>

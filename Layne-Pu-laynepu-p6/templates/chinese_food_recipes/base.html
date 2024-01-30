@@ -1,0 +1,120 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Jia Chang Bian Fan | {% block page-title %}{% endblock %}</title>
+        <link rel="stylesheet" type="text/css" href="{% static "css/global.css" %}">
+        {% block css %}{% endblock %}
+        <script src="{% static "js/jquery-3.6.0.min.js" %}"></script>
+        <script src="{% static "js/scripts.js" %}"></script>
+        {% block scripts %}{% endblock %}
+    </head>
+
+    <body>
+        <div id="header">
+
+            <div id="title-box">
+                <img src="{% static 'img/logo.png' %}" alt="Logo">
+                <h1>Jia Chang Bian Fan</h1>
+                <h2>Chinese Homely Cuisine</h2>
+            </div> <!-- #title-box -->
+
+            <ul id="primary-nav">
+                <li><a href="{% url 'chinese_food_recipes:recipes_home_page' tag='hot'%}">Home</a></li>
+                <li><a href="#">Terms</a></li>
+                <li><a href="#">Privacy</a></li>
+                <li><a href="#">About us</a></li>
+            </ul> <!-- #primary-nav -->
+
+
+            {% if request.session.username %}
+                <div id="user-section">
+                    <img src="{% static "img/me.jpeg" %}" alt="user-photo">
+                    <div id=user-text-section>
+                        <p>Logged in as <a href="{% url 'users:profile' request.session.username %}"> {{ request.session.username }}</a></p>
+                        <a href="{% url 'users:logout' %}" id="log-out-button">Log out</a>
+                    </div>
+                </div>
+            {% else %}
+                <form id="login-box" action="{%  url 'users:login' %}" method="POST">
+                    {% csrf_token %}
+                    <div id="loginInputField">
+                        <input type="text" name="username" placeholder="Username" class="login-field">
+                        <input type="password" name="password" placeholder="Password" class="login-field">
+                    </div>
+
+                    <div id="login-or-regis">
+                        <input id="login-button" type="submit" name="submit" value="Log in">
+                        or <a href="{% url 'users:register' %}">Register</a>
+                    </div>
+                </form> <!-- #login-box -->
+            {% endif %}
+
+        </div> <!-- #header -->
+
+        <div id="short-cut-menu">
+            <p>Common Categories: </p>
+            <a href="{% url 'chinese_food_recipes:recipes_list_page' category="rice" %}" class="short-cut-button">Rice</a>
+            <a href="{% url 'chinese_food_recipes:recipes_list_page' category="noodle" %}" class="short-cut-button">Noodle</a>
+            <a href="{% url 'chinese_food_recipes:recipes_list_page' category="beef" %}" class="short-cut-button">Beef</a>
+            <a href="{% url 'chinese_food_recipes:recipes_list_page' category="pork" %}" class="short-cut-button">Pork</a>
+            <a href="{% url 'chinese_food_recipes:recipes_list_page' category="chicken" %}" class="short-cut-button">Chicken</a>
+            <a href="{% url 'chinese_food_recipes:recipes_list_page' category="egg" %}" class="short-cut-button">Egg</a>
+            <a href="{% url 'chinese_food_recipes:recipes_list_page' category="vegetable" %}" class="short-cut-button">Vegetable</a>
+            <a href="{% url 'chinese_food_recipes:recipes_list_page' category="legume" %}" class="short-cut-button">Legume</a>
+            <a href="{% url 'chinese_food_recipes:recipes_list_page' category="dumpling" %}" class="short-cut-button">Dumpling</a>
+            <a href="{% url 'chinese_food_recipes:recipes_list_page' category="congee" %}" class="short-cut-button">Congee</a>
+        </div>
+
+        <div id="content">
+
+            <div id="functions-div">
+                <form id="search-bar" method="get" action="{% url 'chinese_food_recipes:search_recipe' %}">
+                    <input type="text" id="search-bar-textfield" name="searchValue" placeholder="please search 'pork' to receive results">
+                    <input id="search-button" type="image" value="submit" src="{% static 'img/search.png'%}">
+                </form>
+                <a href="#" id="categories">Full Categories</a>
+                {% if request.session.username and request.session.role != 'unregistered' %}
+                    <a href="{% url 'chinese_food_recipes:recipes_add_page' %}" id="post-recipe">Post Recipe</a>
+                    <a href="{% url 'chinese_food_recipes:recipes_list_page' category="your_recipes" %}" id="your-recipes">Your Recipes</a>
+                    <a href="#" id="collection">Collection</a>
+                {% endif %}
+                {% block slogan %}{% endblock %}
+
+            </div> <!-- #functions-div -->
+
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            {%  block content-title %}{% endblock %}
+
+            {% block tab-ul %}{% endblock %}
+
+            <div id="main-content">
+
+                {% block main-content %}{% endblock %}
+
+                <div id="side-bar">
+                    {% block activity-feed %}{% endblock %}
+                    <a href="#"><img src="{% static "img/US_army_ad.jpeg" %}" alt="Ad"></a>
+                    <a href="#"><img src="{% static "img/Whiskey_ad.jpeg" %}" alt="Ad"></a>
+                </div>
+
+            </div> <!-- #main content-->
+        </div> <!-- #content -->
+
+        <div id="footer">
+            <p><a href="{% url 'chinese_food_recipes:recipes_home_page' tag='hot'%}">Home</a> | <a href="#">Terms</a> | <a href="#">Privacy</a> | <a href="#">About us</a></p>
+            <p>Copyright 2021 Jia Chang Bian Fan</p>
+        </div> <!-- #footer-->
+
+        {% block pop-upimg-div %}{% endblock %}
+
+    </body>
+</html>

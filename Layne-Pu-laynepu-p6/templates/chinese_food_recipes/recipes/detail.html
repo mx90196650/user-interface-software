@@ -1,0 +1,126 @@
+{% extends "chinese_food_recipes/base.html" %}
+{% load static %}
+{% load humanize %}
+{% load custom_tags %}
+
+{% block page-title %}{{ recipe.title }}{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/detail.css' %}">
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/detail.js' %}"></script>
+{% endblock %}
+
+{% block main-content %}
+    <div id="recipe-content">
+        <div id="recipe-intro-section">
+            <div id="recipe-overview">
+
+                <div id="detail-title">
+                    <h1>{{ recipe.title }}</h1>
+                    {% if request.session.username and request.session.role != 'unregistered' %}
+                        <img src="{% static 'img/edit_icon.png' %}" alt="icon" class="editIcon" url="{% url 'chinese_food_recipes:recipes_edit_page' recipe_id=recipe.id %}">
+                    {% endif %}
+                    <p>Recipe by <a href="{% url 'users:profile' recipe.user.username %}">{{ recipe.user.username }}</a> {{ recipe.date_posted|date:"DATE_FORMAT" }}</p>
+{#                    <p>{{ recipe.date_posted|date:'Y-m-d H:i' }}</p>#}
+                </div> <!-- detail-title -->
+
+                <ul id="recipe-interaction">
+                    <li><p>rating: {{ recipe.rating }}/5</p></li>
+                    <li><p>share: {{ recipe.shareNum }}</p></li>
+                    <li><p>comment: {{ recipe.commentNum }}</p></li>
+                </ul> <!-- recipe-interaction -->
+
+                <h3 class="recipe-section-title">Introduction</h3>
+
+                <p id="recipe-description">{{ recipe.description | linebreaksbr }}</p>
+
+            </div> <!-- #recipe-overview -->
+
+            <img src="{% static recipe.imgSrc %}" alt="cuisine-pic" id="cuisine-pic">
+        </div> <!-- #recipe-intro-section -->
+
+        <div id="preparation-info">
+            <p>Servings: {{ recipe.num_of_ser }}</p>
+            <p>Prep Time: {{ recipe.prep_time }} min</p>
+            <p>Cook Time: {{ recipe.cook_time }} min</p>
+        </div>
+
+        <h3 class="recipe-section-title">Ingredients</h3>
+
+        <div id="ingredient-section">
+            <p>{{ recipe.ingredient | linebreaksbr }}</p>
+        </div> <!-- #ingredient-section -->
+
+        <h3 class="recipe-section-title">Instruction</h3>
+
+        <div id="instruction-section">
+            {{ recipe.instruction | linebreaksbr }}
+        </div> <!-- #instruction-section -->
+
+        {% if request.session.username and request.session.role != 'unregistered' %}
+        <div id="interaction-section">
+            <button type="button">Share to people</button>
+            <button type="button">Save to collection</button>
+        </div> <!-- #interaction-section -->
+        {% endif %}
+
+        <h3 class="recipe-section-title">Comment</h3>
+
+        <div id="comment-section">
+            {% if request.session.username and request.session.role != 'unregistered' %}
+            <div class="comment-box"> <!-- comment-text-area -->
+                <div class="comment-box-img">
+                    <img src="{% static 'img/me.jpeg' %}" alt="user-pic">
+                    <a href="{% url 'users:profile' request.session.username %}"> {{ request.session.username }}</a>
+                </div>
+                <form id="comment-form" method="post" action="{% url 'chinese_food_recipes:comment_add' recipe_id=recipe.id %}">
+                    {% csrf_token %}
+                    {#                    <input type="text" name="comment-text-field" placeholder="leave a comment..." id="comment-text-field">#}
+                    <textarea name="comment-text-field" id="comment-text-field" placeholder="leave a comment..."></textarea>
+                    <div id="rate-post-comment">
+                        <p>Give a rate:</p>
+                        <div class="stars">
+                            <input type="radio" id="star-one" name="rate">
+                            <label for="star-one"></label>
+                            <input type="radio" id="star-two" name="rate">
+                            <label for="star-two"></label>
+                            <input type="radio" id="star-three" name="rate">
+                            <label for="star-three"></label>
+                            <input type="radio" id="star-four" name="rate">
+                            <label for="star-four"></label>
+                            <input type="radio" id="star-five" name="rate">
+                            <label for="star-five"></label>
+                        </div>
+                        <input name="submit-comment" id="submit-comment" type="button" value="Post Comment">
+                    </div> <!-- #rate-post-comment -->
+                </form>
+            </div>
+            {% endif %}
+            {% for comment in recipe.comments_set.all|dictsortreversed:'created_time' %}
+                <div class="comment-box" edit-url="{% url 'chinese_food_recipes:comment_edit' comment_id=comment.id %}"> <!-- review-1 -->
+                    <div class="image-comment">
+                        <div class="comment-box-img">
+                            <img src="{% static 'img/hacker_anonymous_icon.png' %}" alt="user-pic">
+                            <a href="{{ comment.user.details.get_absolute_url }}">{{ comment.user }}</a>
+                        </div>
+                        <p class="comment">{{ comment.content }}</p>
+                    </div>
+                    <div class="comment-right-sec">
+                        {% if comment.user.username == request.session.username or request.session.role == 'admin' %}
+                            <div class="comment-man-div">
+                                <img src="{% static 'img/edit_icon.png' %}" alt="icon" class="comment-edit-button">
+                                <img src="{% static 'img/delete-icon.png' %}" class="comment-delete-button" comment_id="{{ comment.id }}" delete-ajax-url={% url 'chinese_food_recipes:comment_delete' %}>
+                            </div>
+                        {% endif %}
+                        <p class="comment-date">{{ comment.created_time|naturaltime|custom_naturaltime }}</p>
+                    </div>
+                </div>
+            {% empty %}
+                <p id="no-comment">No comments yet.</p>
+            {% endfor %}
+        </div> <!-- #comment-section -->
+    </div> <!-- #recipe-content -->
+{% endblock %}

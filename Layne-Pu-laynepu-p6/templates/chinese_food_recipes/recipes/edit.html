@@ -1,0 +1,56 @@
+{% extends "chinese_food_recipes/base.html" %}
+{% load static %}
+
+{% block page-title %}Edit Recipe: {{ recipe.title }}{% endblock %}
+
+{% block css %}
+   <link rel="stylesheet" type="text/css" href="{% static 'css/add.css' %}">
+   <link rel="stylesheet" type="text/css" href="{% static 'css/edit.css' %}">
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/edit.js' %}"></script>
+{% endblock %}
+
+{%  block content-title %}
+    <h1 id="create-recipe-title">Edit Recipe</h1>
+{% endblock %}
+
+{% block main-content %}
+    <form id="add-recipe-form" method="post" action="{% url 'chinese_food_recipes:recipes_edit_page' recipe_id=recipe.id %}">
+        {% csrf_token %}
+        <div id="overview-and-photo">
+
+            <div id="add-overview">
+                <h4 class="add-recipe-section-title">Name of the dish</h4>
+                <input type="text" name="dish-name" id="add-dish-name" value="{{ recipe.title }}" wrap="true">
+                <h4 class="add-recipe-section-title">Introduction</h4>
+                <textarea id="add-introduction" name="introduction" value="{{ recipe.description }}"></textarea>
+            </div> <!-- #add-overview -->
+
+            <div id="right-section">
+                <img src="{% static recipe.imgSrc %}" alt="food-img">
+                <button type="button" id="upload-button">Change photo</button>
+                <input type="submit" name="done-edit" value="Done" id="post-button">
+                <button type="button" id="cancel-button">Cancel</button>
+            </div> <!-- #right-section -->
+
+        </div> <!-- #overview-and-photo -->
+
+        <div id="add-cook-info">
+            <h4 class="add-recipe-section-title">Number of Serving: <input type="text" name="number-of-serving" value="{{ recipe.num_of_ser }}"></h4>
+            <h4 class="add-recipe-section-title">Prep Time: <input type="text" name="dish-prep-time" placeholder="minutes" value="{{ recipe.prep_time }}"></h4>
+            <h4 class="add-recipe-section-title">Cook Time: <input type="text" name="cook-time" placeholder="minutes" value="{{ recipe.cook_time }}"></h4>
+        </div> <!-- #add-cook-info -->
+
+        <h4 class="add-recipe-section-title">Ingredient</h4>
+        <textarea id="add-ingredient" name="ingredient" value="{{ recipe.ingredient }}"></textarea>
+        <h4 class="add-recipe-section-title">Instruction</h4>
+        <textarea id="add-instruction" name="instruction" value="{{ recipe.instruction }}"></textarea>
+
+        <div id="post-cancel-button">
+            <input type="submit" name="done-edit" value="Done">
+            <button type="button">Cancel</button>
+        </div> <!-- #post-cancel-button -->
+    </form>
+{% endblock %}

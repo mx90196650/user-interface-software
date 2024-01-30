@@ -1,0 +1,54 @@
+{% extends "chinese_food_recipes/base.html" %}
+{% load static %}
+
+{% block page-title %}Post Recipe{% endblock %}
+
+{% block css %}
+   <link rel="stylesheet" type="text/css" href="{% static 'css/add.css' %}">
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/add.js' %}"></script>
+{% endblock %}
+
+{%  block content-title %}
+    <h1 id="create-recipe-title">Create Recipe</h1>
+{% endblock %}
+
+{% block main-content %}
+    <form id="add-recipe-form" method="post" action="{% url 'chinese_food_recipes:recipes_add_page' %}">
+        {% csrf_token %}
+        <div id="overview-and-photo">
+
+            <div id="add-overview">
+                <h4 class="add-recipe-section-title">Name of the dish</h4>
+                <input type="text" name="dish-name" id="add-dish-name" required>
+                <h4 class="add-recipe-section-title">Introduction</h4>
+                <textarea name="introduction" id="add-introduction"></textarea>
+            </div> <!-- #add-overview -->
+
+            <div id="right-section">
+                <button type="button" id="upload-button">Click to upload a photo</button>
+                <input type="submit" name="post-recipe" value="Post" id="post-button">
+                <button type="button" id="cancel-button">Cancel</button>
+            </div> <!-- #right-section -->
+
+        </div> <!-- #overview-and-photo -->
+
+        <div id="add-cook-info">
+            <h4 class="add-recipe-section-title">Number of Serving: <input type="text" name="number-of-serving"></h4>
+            <h4 class="add-recipe-section-title">Prep Time: <input type="text" name="dish-prep-time" placeholder="minutes"></h4>
+            <h4 class="add-recipe-section-title">Cook Time: <input type="text" name="cook-time" placeholder="minutes"></h4>
+        </div> <!-- #add-cook-info -->
+
+        <h4 class="add-recipe-section-title">Ingredient</h4>
+        <textarea name="ingredient" id="add-ingredient" required></textarea>
+        <h4 class="add-recipe-section-title">Instruction</h4>
+        <textarea name="instruction" id="add-instruction" required></textarea>
+
+        <div id="post-cancel-button">
+            <input type="submit" name="post-recipe" value="Post">
+            <button type="button">Cancel</button>
+        </div> <!-- #post-cancel-button -->
+    </form>
+{% endblock %}

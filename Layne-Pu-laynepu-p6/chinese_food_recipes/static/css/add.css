@@ -1,0 +1,124 @@
+h1#create-recipe-title {
+    margin: 2rem 0 0rem 4rem;
+}
+
+div#main-content {
+    display:flex;
+}
+
+form#add-recipe-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: blanchedalmond;
+    margin-left: 3rem;
+    width: 70%;
+    padding: 1rem;
+}
+
+input#add-dish-name{
+    width: 25rem;
+    font-size: medium;
+    padding: 0.1rem 0.1rem 1rem 0.1rem;
+    margin-right: 10rem;
+}
+
+div#overview-and-photo {
+    display: flex;
+}
+
+div#add-overview {
+    display: flex;
+    flex-direction: column;
+}
+
+button#upload-button{
+    width: 10rem;
+    height: 10rem;
+    font-size: 1rem;
+    margin-left: 5rem;
+    background-color: lightyellow;
+}
+
+input#post-button{
+    margin-top: 3rem;
+    font-size: 1rem;
+    width: 10rem;
+    height: 2rem;
+    background-color: burlywood;
+}
+
+button#cancel-button{
+    margin-top: 1rem;
+    width: 6rem;
+    height: 1.5rem;
+    background-color: burlywood;
+}
+
+div#right-section {
+    display:flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+textarea#add-introduction{
+    width: 100%;
+    padding: 0.1rem 0.1rem 10rem 0.1rem;
+    margin-bottom: 1rem;
+    font-size: medium;
+}
+
+div#add-cook-info {
+    display:flex;
+    justify-content: left;
+}
+
+div#add-cook-info h4 {
+    margin-right: 1rem;
+}
+
+div#add-cook-info input{
+    width: 4.5rem;
+    padding: 0.1rem;
+    font-size: medium;
+}
+
+h4.add-recipe-section-title {
+    margin: 1rem 0;
+    font-size: large;
+}
+
+textarea#add-ingredient {
+    width: 75%;
+    font-size: medium;
+    padding: 0.1rem 0.1rem 25rem 0.1rem;
+    margin-bottom: 1rem;
+}
+
+textarea#add-instruction {
+    width: 75%;
+    font-size: medium;
+    padding: 0.1rem 0.1rem 40rem 0.1rem;
+    margin-bottom: 1rem;
+}
+
+div#post-cancel-button {
+    display: flex;
+    align-items: flex-end;
+}
+
+div#post-cancel-button input{
+    width: 10rem;
+    height: 2rem;
+    font-size: 1rem;
+    margin: 0 2rem 0 10rem;
+    background-color: burlywood;
+
+}
+
+div#post-cancel-button button{
+    width: 6rem;
+    height: 1.5rem;
+    margin-right: 2rem;
+    background-color: burlywood;
+}

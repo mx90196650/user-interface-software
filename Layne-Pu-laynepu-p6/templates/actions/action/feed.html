@@ -1,0 +1,24 @@
+{% load humanize %}
+
+<div id="activity-feed-div">
+    <h3>
+        {% if user.username %}
+            <a href="{% url 'users:profile' username=user.username %}"> {{ user.username }}</a>'s recent Activity
+        {% else %}
+            Recent Activity
+        {% endif %}
+    </h3>
+    <ul id="activity-feed-ul">
+        {% for action in actions %}
+            {% if action.target_ct.model == 'user' %}
+                <li><a href="{{ action.user.details.get_absolute_url }}">{{ action.user }}</a> {{ action.verb }} {% if action.target %}"<a href="{{ action.target.details.get_absolute_url }}">{{ action.target }}</a>"{% endif %}<p>({{ action.created|date:"m/d/Y H:i:s" }})</p></li>
+            {% elif action.target_ct.model == 'recipes' %}
+                <li><a href="{{ action.user.details.get_absolute_url }}">{{ action.user }}</a> {{ action.verb }} <a href="{{ action.target.get_absolute_url }}">{{ action.target }}</a> <p>({{ action.created|date:"m/d/Y H:i:s" }})</p></li>
+            {% else %}
+                <li><a href="{{ action.user.details.get_absolute_url }}">{{ action.user }}</a> {{ action.verb }} <p>({{ action.created|date:"m/d/Y H:i:s" }})</p></li>
+            {% endif %}
+        {% empty %}
+            <li>No activity yet.</li>
+        {% endfor %}
+    </ul>
+</div>

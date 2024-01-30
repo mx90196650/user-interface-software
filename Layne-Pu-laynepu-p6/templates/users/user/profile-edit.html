@@ -1,0 +1,51 @@
+{% extends "chinese_food_recipes/base.html" %}
+{% load static %}
+
+{% block page-title %}Profile for {{ user.username }}{% endblock %}
+
+{% block css %}
+   <link rel="stylesheet" type="text/css" href="{% static 'css/profile-edit.css' %}">
+{% endblock %}
+
+{%  block content-title %}
+    <div id="profile-title">
+        <h1 id="profile-title">Profile for {{ user.username }}</h1>
+    </div>
+{% endblock %}
+
+{% block main-content %}
+    <dl id="profile-detail">
+        <form id="profile-edit-form" method="post" action="{% url 'users:profile-edit' username=user.username %}">
+            {% csrf_token %}
+            <dt>Username: </dt>
+            <dd>{{ user.username }}<br></dd>
+            <dt>First Name: </dt>
+            <dd><input type="text" name="first-name" id="edit-first-name" value="{{ user.first_name }}" wrap="true"><br></dd>
+            <dt>Last Name: </dt>
+            <dd><input type="text" name="last-name" id="edit-last-name" value="{{ user.last_name }}" wrap="true"><br></dd>
+            <dt>Email Address: </dt>
+            <dd><input type="text" name="email-address" id="edit-email-address" value="{{ user.email }}" wrap="true" required><br></dd>
+            <dt>Password: </dt>
+            <dd><input type="password" name="password" id="edit-password" wrap="true" placeholder="leave blank if not change"><br></dd>
+            <dt>Role: </dt>
+{#            <dd><input type="text" name="role" id="edit-role" value="{{ user.details.role }}" wrap="true" required><br></dd>#}
+            {% if request.session.role == 'admin' %}
+                <dd>
+                    <select name="role">
+                        <option value="admin" {% if user.details.role == 'admin' %} selected {% endif %}> admin </option>
+                        <option value="regular" {% if user.details.role == 'regular' %} selected {% endif %}> regular </option>
+                        <option value="unregistered" {% if user.details.role == 'unregistered' %} selected {% endif %}> unregistered </option>
+                    </select><br>
+                </dd>
+            {% else %}
+                <dd>{{ user.details.role }}<br></dd>
+            {% endif %}
+            <input type="submit" name="done-edit" value="Done">
+            <button type="button">Cancel</button>
+        </form>
+    </dl>
+{% endblock %}
+
+{% block activity-feed %}
+    {% include "actions/action/feed.html" with user=user  %}
+{% endblock %}

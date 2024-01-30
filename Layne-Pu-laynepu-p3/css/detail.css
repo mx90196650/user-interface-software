@@ -1,0 +1,183 @@
+div#main-content {
+    margin-top: 2rem;
+}
+
+div#recipe-content {
+    border-style: solid;
+    border-color: dimgray;
+    margin: 0 0.25rem 0 3rem;
+    background-color: bisque;
+    padding: 2rem 1rem;
+}
+
+div#recipe-intro-section {
+    display:flex;
+    align-items: flex-start;
+    padding-bottom: 3rem;
+}
+
+div#recipe-overview p {
+    font-family: "Apple SD Gothic Neo";
+}
+
+div#detail-title {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-bottom: 1rem;
+}
+
+.recipe-section-title{
+    padding: 0.5rem 0;
+}
+
+
+img#cuisine-pic {
+    width: 20rem;
+    margin: 1rem;
+}
+
+ul#recipe-interaction {
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 1rem;
+}
+
+ul#recipe-interaction li {
+    list-style-type: none;
+}
+
+div#preparation-info {
+    padding-bottom: 2rem;
+}
+
+div#ingredient-section {
+    display: grid;
+    width: 90%;
+    height: 40rem;
+    background-color: blanchedalmond;
+    border: 1px solid;
+    padding: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+div#ingredient-section p {
+    font-family: "Apple SD Gothic Neo";
+}
+
+div#instruction-section {
+    display: grid;
+    width: 90%;
+    height: 40rem;
+    background-color: blanchedalmond;
+    border: 1px solid;
+    padding: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+div#instruction-section p {
+    font-family: "Apple SD Gothic Neo";
+}
+
+div#comment-section {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    background-color: blanchedalmond;
+    border: 1px solid;
+    padding: 0.5rem;
+}
+
+div#interaction-section{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+div#interaction-section button{
+    margin: 0 2rem;
+    padding: 0.5rem 1rem;
+    background-color: burlywood;
+    font-size: 1.5rem;
+}
+
+div.comment-box {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid;
+    padding: 1rem;
+}
+
+div.image-comment {
+    display: flex;
+}
+
+div.comment-box-img {
+    padding-right: 1rem;
+}
+
+div.comment-box img {
+    width: 3rem;
+}
+
+div#rate-post-comment {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+}
+
+div.stars {
+    margin-left: 1rem;
+}
+
+div.stars label {
+    float: right;
+    text-shadow: 1px 1px #bbb;
+}
+
+div.stars label:before {
+    content: '★';
+    margin: 0 0.1rem;
+}
+
+div.stars input {
+    display: none;
+}
+
+div.stars input:checked ~ label {
+    color: gold;
+}
+
+div.stars:not(:checked) > label:hover,
+div.stars:not(:checked) > label:hover ~ label {
+    color: gold;
+}
+
+
+
+div.comment-box p.comment {
+    font-family: "Al Tarikh";
+}
+
+div.comment-box p.comment-date {
+    padding-top: 3rem;
+}
+
+div.comment-box form {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+    width: 90%;
+}
+
+div.comment-box input#comment-text-field {
+    width: 100%;
+    padding: 0.5rem 0 10rem 0.5rem;
+    font-size: medium;
+}
+
+form input#submit-comment {
+    width: 10rem;
+    height: 2rem;
+    margin: 1rem 0 0 10rem;
+}

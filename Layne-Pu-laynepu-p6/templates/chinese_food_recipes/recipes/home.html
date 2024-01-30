@@ -1,0 +1,88 @@
+{% extends "chinese_food_recipes/base.html" %}
+{% load static %}
+{% load humanize %}
+{% load custom_tags %}
+
+{% block page-title %}Home{% endblock %}
+
+{% block slogan %}
+    {% if not request.session.username %}
+        <h2 id="slogan">Register to get ready for the best taste ↑↑</h2>
+    {% endif %}
+{% endblock %}
+
+{% block tab-ul %}
+    <ul id="tabs">
+        <li><a href="{% url 'chinese_food_recipes:recipes_home_page' tag='hot'%}" {% if tag == 'hot' %} class="tab-selected" {% else %} class="tab" {% endif %} id="hot-tab">Hot</a></li>
+        <li><a href="{% url 'chinese_food_recipes:recipes_home_page' tag='new'%}" {% if tag == 'new' %} class="tab-selected" {% else %} class="tab" {% endif %} id="new-tab">New</a></li>
+        <li><a href="{% url 'chinese_food_recipes:recipes_home_page' tag='top'%}" {% if tag == 'top' %} class="tab-selected" {% else %} class="tab" {% endif %} id="top-tab">Top</a></li>
+    </ul> <!-- #tabs -->
+{% endblock %}
+
+{% block main-content %}
+    <div id="Hot-recipe">
+
+        {% for recipe in recipes %}
+            <div class="recipes">
+                <div class="recipes-pic"><img src="{% static recipe.imgSrc %}" alt="food-img" class="recipes-pic"></div>
+                <div class="recipe-info">
+                    <div class="recipe-title-description">
+                        {% if request.session.username %}
+                            <div class="recipeTitle-bookmark-div">
+                                <a href="{% url 'chinese_food_recipes:recipes_detail_page' recipe_id=recipe.id %}" class="recipe-title"><h3 class="recipes-title">{{ recipe.title }}</h3></a>
+                                <div class="bookmark-div">
+                                    {% if request.session.username and request.session.username in recipe.collected_by and request.session.role != 'unregistered' %}
+                                        <img src="{% static 'img/bookmark_solid.png' %}" alt="icon" class="selectedBookmarkIcon" data-recipe-id="{{ recipe.id }}" data-ajax-url="{% url 'chinese_food_recipes:collection_icon_clicked' %}">
+                                    {% elif request.session.username and request.session.role != 'unregistered' %}
+                                        <img src="{% static 'img/bookmark_hollow.png' %}" alt="icon" class="bookmarkIcon" data-recipe-id="{{ recipe.id }}" data-ajax-url="{% url 'chinese_food_recipes:collection_icon_clicked' %}">
+                                    {% endif %}
+                                    {% if request.session.role == 'admin' %}
+                                        <form class="delete-form" action="{% url 'chinese_food_recipes:delete_recipe' recipe_id=recipe.id %}" method="post" >
+                                            {% csrf_token %}
+                                            <img src="{% static "img/delete-icon.png" %}" class="delete-button"></img>
+                                        </form>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <p class="recipes-description">{{ recipe.description }}</p>
+                        {% else %}
+                            <div class="recipe-title-description">
+                                <a href="{% url 'chinese_food_recipes:recipes_detail_page' recipe_id=recipe.id %}" class="recipe-title"><h3 class="recipes-title">{{ recipe.title }}</h3></a>
+                                <p class="recipes-description">{{ recipe.description }}</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="recipe-sub-info">
+                        <div class="rating">
+                            <p class="star">★</p>
+                            <p>{{ recipe.rating }} / 5</p>
+                        </div>
+                        {% if request.session.username %}
+                            <p>share: {{ recipe.shareNum }}</p>
+                            <p>comment: {{ recipe.commentNum }}</p>
+                        {% endif %}
+                        <p>Posted by <a href="{% url 'users:profile' recipe.user.username %}">{{ recipe.user.username }}</a> {{ recipe.date_posted|naturaltime|custom_naturaltime }}</p>
+                    </div> <!-- .recipe-sub-info -->
+                </div> <!-- .recipe-info -->
+            </div> <!-- .recipes -->
+        {% endfor %}
+
+    </div> <!-- #Hot-recipe -->
+{% endblock %}
+
+{% block pop-upimg-div %}
+    <div id="pop-up-img-div">
+        <div id="img-box">
+            <img src="" alt="large-img" id="large-pic">
+        </div>
+    </div> <!-- #pop-up-img-div -->
+{% endblock %}
+
+
+
+{% block activity-feed %}
+    {% if request.session.username and request.session.role != 'unregistered' %}
+        {% include "actions/action/feed.html" %}
+    {% endif %}
+{% endblock %}
+

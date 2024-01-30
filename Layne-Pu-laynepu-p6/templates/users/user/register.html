@@ -1,0 +1,37 @@
+{% extends "chinese_food_recipes/base.html" %}
+{% load static %}
+
+{% block page-title %}Register{% endblock %}
+
+{% block css %}
+   <link rel="stylesheet" type="text/css" href="{% static 'css/register.css' %}">
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/add.js' %}"></script>
+{% endblock %}
+
+{%  block content-title %}
+    <h1 id="register-title">Register Account</h1>
+{% endblock %}
+
+{% block main-content %}
+    <form id="register-form" method="post" action="{% url 'users:register' %}">
+        {% csrf_token %}
+        <p>Fields with * are required</p>
+
+        <label for="register-username">Username*: </label>
+        <input id="register-username" name="username" type="text" required><br>
+        <label for="register-first-name">First Name: </label>
+        <input id="register-first-name" name="first-name" type="text"><br>
+        <label for="register-last-name">Last Name: </label>
+        <input id="register-last-name" name="last-name" type="text"><br>
+        <label for="register-email">Email*: </label>
+        <input id="register-email" name="email" type="email" required><br>
+        <label for="register-password">Password*: </label>
+        <input id="register-password" name="password" type="password" required><br>
+
+        <input id="submit-button" type="submit" name="submit" value="Register">
+        <button type="button">Cancel</button>
+    </form> <!-- #register-form -->
+{% endblock %}
